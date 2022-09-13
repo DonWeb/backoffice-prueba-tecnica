@@ -1,6 +1,6 @@
 Objetivo:
     El objetivo de la evaluación es probar los conocimientos en PHP en un entorno POO bajo algún framework conocido, 
-    modelo MVC y mysql.
+    modelo MVC y SQLite.
 
 FrameWork utilizado: Laravel 9 + Laravel Sail (entorno dokerizado)
 
@@ -17,19 +17,28 @@ Herramientas necesarias:
 Evalución:
             
         1) Clonar el siguiete repositorio en su maquina:
+            - Dentro del directorio raíz del proyecto
 
-            - renombrar archivo .env.example a .env
+                - Renombrar el archivo database/database.txt a database/database.sqlite
 
-            - Si tiene Docker correctamente instalado debería arrancar el proyecto entrando al directorio raíz y ejecutando el siguiente comando:
+                - Renombrar archivo .env.example a .env
             
-            ./vendor/bin/sail up
+                - Ejecutar composer install
 
-            Más info en (https://laravel.com/docs/9.x/sail)
+                - Si tiene Docker correctamente instalado debería arrancar el proyecto entrando al directorio raíz y ejecutando el siguiente comando:
             
-            Ya tenemos una api configurada que devuelve todas las categorías, puede probrarlo con la siguente info:
+                    ./vendor/bin/sail up
+
+                Más info en (https://laravel.com/docs/9.x/sail)
+            
+                Ya tenemos una api configurada que devuelve todas las categorías, puede probrarlo con la siguente info:
         
-            METHOD: GET
-            ACTION: http://localhost:8080/api/v1/categories
+                METHOD: GET
+                ACTION: http://localhost:8080/api/v1/categories
+
+                IMPORTANTE: Para correr los comandos de artisan o php en consola debe reemplazar la palabra 'php' por 'sail'. 
+            
+                Ej: sail artisan route:list
             
     
         2)  Crear un servicio nuevo para poder obtener los productos por una determinada categoria.
