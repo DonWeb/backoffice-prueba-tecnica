@@ -48,7 +48,6 @@ El párametro "idCategoria" debe ser opcional, en caso de no pasar el mismo, el 
 ---
 
 ## Resolucion: 
-=========================
 ```
 1.- Correr Docker ./vendor/bin/sail up
 2.- Abrir postman -> get -> http://localhost:8080/api/v1/products/idCategory/2 
@@ -72,7 +71,6 @@ Resultado esperado de la consulta.
 ---
 
 ## Resolucion - Query - Categorias y Sub Categorias:
-=========================
 ```
 select c1.nombre as padre, c2.nombre as categoria_lvl1,c3.nombre as categoria_lvl2
 from categories c1
@@ -84,7 +82,6 @@ where c1.idcategoriapadre is null;
 4. Crear los scripts y configuraciones necesarias para dejar funcionando un backup automático diario de la base de datos. 
 
 ## Resolucion 
-=========================
 ```
 - Se creo un nuevo servicio en docker-composer.yml llamado schedule para que verifique los schedule de laravel y se ejecuten...
 - En Console -> Commands -> Existe un comando llamado db:backup este se agrego en Kernel.php y se correra todos los dias a la medianoche segun la documentacion... aunque la zonahoraria esta configurada en UTC... https://laravel.com/docs/9.x/scheduling
@@ -96,7 +93,6 @@ Console->Commands->DbBackup.php
 5. Escribir un comando para consola ( https://laravel.com/docs/9.x/artisan#generating-commands) que reciba como parámetro el domino (.com.AR) y haga una consulta de datos de whois por medio el servicio de RDAP de nic.ar (https://rdap.nic.ar/domain/$DOMINIO') y  devuelva la fecha de vencimiento
 
 ## Resolucion
-=========================
 ```
 - Se creo un comando llamado domain:verify -> Este devuelve la fecha de vencimiento -> Y-m-d H:i:s
 Console->Commands->VerifyDomain.php
@@ -106,10 +102,21 @@ Console->Commands->VerifyDomain.php
 Caso que funciona para poder probar : andes3d.com
 
 ## Problema
-=========================
-```
 Hace falta algun dato mas en el ejercicio 6?
+```
     Realices simples pruebas con wscat
         $ wscat -c ws://whois.donweb.com:43
         error: Parse Error: Expected HTTP/
+```
+## Resolucion Temporal
+Investigue sobre alguna API donde pueda conseguir el nameservers de un dominio y encontre esta https://whoisjsonapi.com/
+Decidi implementar utilizando esta API para entregar algo por lo menos hasta que tenga mas informacion sobre el WS. 
+
+Al ingresar un dominio te devuelve los nameservers
+
+En env se agrego un token (TOKEN_WHOISJSONAPI) para poder utilizar la API de whoisjsonapi.com
+
+```
+    http://localhost:8080/api/v1/whois/andes3d.com
+    Se puede realizar http://localhost:8080/api/v1/whois/help para obtener mas informacion sobre el metodo...
 ```
