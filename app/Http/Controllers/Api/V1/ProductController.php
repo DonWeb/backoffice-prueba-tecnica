@@ -38,6 +38,9 @@ class ProductController extends Controller
         return $result;
     }
 
+    /**
+     * Simple funcion de ayuda que devuelve metodos y parametros disponibles
+     */
     private function help(){
         return [
             "params"=>[
