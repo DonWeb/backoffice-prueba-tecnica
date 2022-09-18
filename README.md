@@ -86,8 +86,8 @@ Evalución:
 
             Resolucion 
             =========================
-            - Se agrego en docker-composer.yml entrypoint en laravel.test para que verifique los schedule de laravel...
-            - En Console -> Commands -> Existe un comando llamado db:backup este se agrego en Kernel.php y se correra todos los dias a la medianoche segun la documentacion... https://laravel.com/docs/9.x/scheduling
+            - Se creo un nuevo servicio en docker-composer.yml llamado schedule para que verifique los schedule de laravel y se ejecuten...
+            - En Console -> Commands -> Existe un comando llamado db:backup este se agrego en Kernel.php y se correra todos los dias a la medianoche segun la documentacion... aunque la zonahoraria esta configurada en UTC... https://laravel.com/docs/9.x/scheduling
             - El comando es bastante simple como es un sqlite realizo un copy() a storage/app/backup ahi dentro estan los backup de la base de datos
             (Esta capturado el error de copy() en caso que se necesite agregar una notificacion... como correo o guardarlo en un log...)
 
