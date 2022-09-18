@@ -37,6 +37,7 @@ class DbBackup extends Command
         $createfile = "cp database/database.sqlite ".storage_path().'/app/backup/'.$filename;
 
         try {
+            exec('mkdir '.storage_path().'/app/backup');
             copy("database/database.sqlite", storage_path().'/app/backup/'.$filename);
         } catch (\Throwable $th) {
             echo "ERROR: " . $th->getMessage();
