@@ -53,11 +53,9 @@ Evalución:
 
             Resolucion: 
             =========================
-            ```
-                1.- Correr Docker ./vendor/bin/sail up
-                2.- Abrir postman -> get -> http://localhost:8080/api/v1/products/idCategory/2 
-                info: Para ver mas informacion se puede realizar  http://localhost:8080/api/v1/products/help
-            ```
+            1.- Correr Docker ./vendor/bin/sail up
+            2.- Abrir postman -> get -> http://localhost:8080/api/v1/products/idCategory/2 
+            info: Para ver mas informacion se puede realizar  http://localhost:8080/api/v1/products/help
 
         
         3)  Dada la tabla "catagorias", escribir una única consulta SQL para poder obtener las categorías y sub categorías hasta 3 niveles.
@@ -78,29 +76,34 @@ Evalución:
 
             Resolucion - Query - Categorias y Sub Categorias:
             =========================
-            ```
             select c1.nombre as padre, c2.nombre as categoria_lvl1,c3.nombre as categoria_lvl2
             from categories c1
             left join categories c2 on c1.id = c2.idcategoriapadre
             left join categories c3 on c2.id = c3.idcategoriapadre
             where c1.idcategoriapadre is null;
-            ```
 
         4) Crear los scripts y configuraciones necesarias para dejar funcionando un backup automático diario de la base de datos. 
 
             Resolucion 
             =========================
-            ```
-                - Se agrego en docker-composer.yml entrypoint en laravel.test para que verifique los schedule de laravel...
-                - En Console -> Commands -> Existe un comando llamado db:backup este se agrego en Kernel.php y se correra todos los dias a la medianoche segun la documentacion... https://laravel.com/docs/9.x/scheduling
-                - El comando es bastante simple como es un sqlite realizo un copy() a storage/app/backup ahi dentro estan los backup de la base de datos
-                (Esta capturado el error de copy() en caso que se necesite agregar una notificacion... como correo o guardarlo en un log...)
-            ```
+            - Se agrego en docker-composer.yml entrypoint en laravel.test para que verifique los schedule de laravel...
+            - En Console -> Commands -> Existe un comando llamado db:backup este se agrego en Kernel.php y se correra todos los dias a la medianoche segun la documentacion... https://laravel.com/docs/9.x/scheduling
+            - El comando es bastante simple como es un sqlite realizo un copy() a storage/app/backup ahi dentro estan los backup de la base de datos
+            (Esta capturado el error de copy() en caso que se necesite agregar una notificacion... como correo o guardarlo en un log...)
 
         5) Escribir un comando para consola ( https://laravel.com/docs/9.x/artisan#generating-commands) que reciba como parámetro el domino (.com.AR) y haga una consulta de datos de whois por medio el servicio de RDAP de nic.ar (https://rdap.nic.ar/domain/$DOMINIO') y  devuelva la fecha de vencimiento
 
-
+            Resolucion
+            =========================
+            - Se creo un comando llamado domain:verify -> Este devuelve la fecha de vencimiento -> Y-m-d H:i:s
 
         6) Escribir un servicio WEB que reciba como parámetro el domino (.com) y haga una consulta de datos de whois por medio de socket (servidor : whois.donweb.com puerto: 43) y devuelva los Name Server
 
         Caso que funciona para poder probar : andes3d.com
+
+            Problema
+            =========================
+            Hace falta algun dato mas en el ejercicio 6?
+            Realices simples pruebas con wscat
+                $ wscat -c ws://whois.donweb.com:43
+                error: Parse Error: Expected HTTP/
