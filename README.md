@@ -4,14 +4,18 @@ Objetivo:
 
 FrameWork utilizado: Laravel 9 + Laravel Sail (entorno dokerizado)
 
+
 Herramientas necesarias:
         + Conexión a Internet
         + GIT
         + Docker  
         + Browser
         + IDE 
-        + Cliente para api REST o en su defecto curl.   
-        
+        + Cliente para api REST o en su defecto curl.
+
+Repositorio:
+La rama main está protegida. Para que podamos evaluar tu codigo tenes que 
+crear una nueva rama con tu nombre, hacer push a origin y generar un Pull Request
 
 Evalución:
             
