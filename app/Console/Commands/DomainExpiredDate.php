@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Services\DomainServices;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 use Symfony\Component\Console\Output\ConsoleOutput as ConsoleOutput;
 
 class DomainExpiredDate extends Command
@@ -31,8 +31,7 @@ class DomainExpiredDate extends Command
     {
         $output = new ConsoleOutput();
         $output->writeln("<comment>Fecha de vencimiento del dominio</comment>\n");
-        $response = Http::get("https://rdap.nic.ar/domain/{$this->option('domain')}");
-
-        $output->writeln("\n<info> El dominio vence el día: {$response->body()} </info>");
+        $dateExpired = DomainServices::domainExpired($this->option('domain'));
+        $output->writeln("\n<info> {$dateExpired} </info>");
     }
 }
