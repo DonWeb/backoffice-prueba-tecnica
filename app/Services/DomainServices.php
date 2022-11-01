@@ -3,11 +3,18 @@
 namespace App\Services;
 
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Http;
 use Iodev\Whois\Factory;
 
 class DomainServices
 {
+    /**
+     * Recibe como parametro un dominio y retorna la fecha de vencimiento o un mensaje
+     *
+     * @param  string  $domain
+     * @return string
+     */
     public static function domainExpired(string $domain): string
     {
         $response = Http::get("https://rdap.nic.ar/domain/{$domain}");
@@ -27,6 +34,12 @@ class DomainServices
         }
     }
 
+    /**
+     * Recibe como parametro un dominio y verifica si el dominio esta disponible o esta asignado a alguien
+     *
+     * @param  string  $domain
+     * @return bool
+     */
     private static function domainAvailable(string $domain): bool
     {
         $whois = Factory::get()->createWhois();
@@ -38,7 +51,13 @@ class DomainServices
         return  true;
     }
 
-    public function getNameServer(string $domain)
+    /**
+     * Recibe como parametro un dominio y retorna JsonResponse con los Name Server
+     *
+     * @param  string  $domain
+     * @return JsonResponse
+     */
+    public function getNameServer(string $domain): JsonResponse
     {
         $message = [];
         if (self::domainAvailable($domain) && str_ends_with($domain, '.com')) {
