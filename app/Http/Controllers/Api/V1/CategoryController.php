@@ -16,8 +16,4 @@ class CategoryController extends Controller
     {
         return Category::all();
     }
-
-    public function getProductos(int $idCategoria = null)
-    {
-    }
 }
