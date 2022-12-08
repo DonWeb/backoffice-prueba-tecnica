@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post(
+    'consulta-dominio/' ,
+    [App\Http\Controllers\DominioController::class, 'getNameServer'])
+    ->name('get.name.server');
